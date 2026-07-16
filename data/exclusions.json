@@ -1,0 +1,228 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-07-16T07:01:15.689Z",
+  "exclusions": [
+    {
+      "listing_id": "web-all-top-alltop-com",
+      "url": "https://alltop.com/feed",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-appoid-appiod-com",
+      "url": "https://appiod.com/submit-app-for-revien",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-apps-400-apps400-com",
+      "url": "https://apps400.com/submit-your-application-fol",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-apps-mirror-appsmirror-com",
+      "url": "https://appsmirror.com/submit-your-app-fol",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-artic-startups-arcticstartup-com",
+      "url": "https://arcticstartup.com/become-a",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-business-to-community-business2community-com",
+      "url": "https://www.business2community.com/;",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-coin-scribble-coinscribble-com",
+      "url": "http://coinscribble.com/contact",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-coindoo-coindoo-com",
+      "url": "https://coindoo.com/submit-press-releast",
+      "reason": "HTTP 410",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-discover-cloud-discovercloud-com",
+      "url": "https://www.discovercloud.com/become-",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-engadget-engadget-com",
+      "url": "https://www.engadget.com/about/advertist",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-future-of-saas-futureofsaas-io",
+      "url": "https://www.futureofsaas.io/contributor-",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-inc42-inc42-com",
+      "url": "https://inc42.com/startup-submissic",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-index-index-co",
+      "url": "https://index.co/companies?&",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-indian-yellow-pages-indianyellowpages-com",
+      "url": "https://www.indianyellowpages.com/post-",
+      "reason": "HTTP 410",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-indie-gamer-reviewer-indiegamereviewer-com",
+      "url": "https://indiegamereviewer.com/contact-ir",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-jona-jonapr-com",
+      "url": "https://jonapr.com/",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-launched-by-lovable-launched-lovable-app",
+      "url": "https://launched.lovable.app/",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-lets-venture-letsventure-com",
+      "url": "https://letsventure.com/join/startup",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-mashable-in-mashable-com",
+      "url": "https://in.mashable.com/website-informati",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-oye-startups-oyestartups-com",
+      "url": "https://oyestartups.com/contact",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-pc-mag-in-pcmag-com",
+      "url": "https://in.pcmag.com/",
+      "reason": "HTTP 410",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-pocket-gamer-pocketgamer-com",
+      "url": "https://www.pocketgamer.com/pages/cont",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-red-ferret-redferret-net",
+      "url": "https://www.redferret.net/contact-us",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-startup-dope-startupdope-com",
+      "url": "https://startupdope.com/submit-nev",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-startup-lift-startuplift-com",
+      "url": "http://startuplift.com/submit-your-startup",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-startup-sea-startupsea-com",
+      "url": "http://www.startupsea.com/p/submi",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-startup-wizz-startupwizz-com",
+      "url": "http://startupwizz.com/submit-a-startup",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-startup-world-startupworld-com",
+      "url": "https://www.startupworld.com/conti",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-startup88-startup88-com",
+      "url": "https://startup88.com/category/star",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-startuplister-startuplister-com",
+      "url": "https://startuplister.com/",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-startupstage-startupstage-app",
+      "url": "https://startupstage.app/",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-startupvalley-news-startupvalley-news",
+      "url": "https://www.startupvalley.news/apply-now,",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-techli-techli-com",
+      "url": "https://techli.com/contact",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-the-tech-blog-thetechblock-com",
+      "url": "https://www.thetechblock.com/contact-t",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-thenocodecrew-thenocodecrew-com",
+      "url": "https://thenocodecrew.com/",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-w3-catalog-w3catalog-com",
+      "url": "http://w3catalog.com/submit.php",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    },
+    {
+      "listing_id": "web-webwide-webwide-io",
+      "url": "http://webwide.io/forums/project-showca",
+      "reason": "HTTP 404",
+      "checked_at": "2026-07-16T07:01:15.689Z"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "list-of-listings",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A searchable catalog of places to publish and promote apps, sites, libraries, AI tools, and open-source projects.",
+  "scripts": {
+    "refresh": "node scripts/refresh-sources.mjs && npm run build",
+    "refresh:github": "node scripts/refresh-sources.mjs --github-only",
+    "refresh:web": "node scripts/refresh-sources.mjs --web-only",
+    "build": "node scripts/build-catalog.mjs && node scripts/build-readme.mjs",
+    "readme": "node scripts/build-readme.mjs",
+    "search": "node scripts/search.mjs",
+    "validate": "node scripts/validate.mjs",
+    "check:links": "node scripts/check-links.mjs",
+    "links:record-exclusions": "node scripts/record-link-exclusions.mjs",
+    "test:mcp": "node scripts/test-mcp.mjs",
+    "test": "npm run validate && npm run test:mcp",
+    "mcp": "node mcp/server.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "zod": "4.4.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

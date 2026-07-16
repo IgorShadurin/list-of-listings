@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/IgorShadurin/list-of-listings/blob/main/schemas/catalog.schema.json",
+  "title": "List of Listings catalog",
+  "type": "object",
+  "required": ["schema_version", "generated_at", "catalog_date", "stats", "sources", "methodology", "listings"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "catalog_date": { "type": "string", "format": "date" },
+    "stats": {
+      "type": "object",
+      "required": ["total", "by_platform", "by_category", "by_accepted_type", "with_documented_rules", "mcp_native_write"],
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "by_platform": { "$ref": "#/$defs/countMap" },
+        "by_category": { "$ref": "#/$defs/countMap" },
+        "by_accepted_type": { "$ref": "#/$defs/countMap" },
+        "with_documented_rules": { "type": "integer", "minimum": 0 },
+        "mcp_native_write": { "type": "integer", "minimum": 0 },
+        "github_stars_total": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": true
+    },
+    "sources": { "type": "array", "items": { "type": "object" } },
+    "methodology": { "type": "object" },
+    "listings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/listing" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "countMap": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "nullableNonNegativeInteger": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "httpUrl": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https?://"
+    },
+    "listing": {
+      "type": "object",
+      "required": ["id", "name", "description", "url", "platform", "category", "accepts", "publication_scope", "submission", "requirements", "automation", "verification", "evidence", "source", "tags"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "url": { "$ref": "#/$defs/httpUrl" },
+        "platform": { "type": "string", "minLength": 1 },
+        "category": { "type": "string", "minLength": 1 },
+        "accepts": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["ai-tool", "api", "app", "curated-list", "dataset-or-model", "library", "mcp-server", "open-source-project", "plugin", "project", "website"]
+          }
+        },
+        "commercial_allowed": { "type": ["boolean", "null"] },
+        "publication_scope": { "type": "string", "minLength": 1 },
+        "submission": {
+          "type": "object",
+          "required": ["url", "method", "status", "cost", "last_verified"],
+          "properties": {
+            "url": { "$ref": "#/$defs/httpUrl" },
+            "method": { "type": "string", "minLength": 1 },
+            "status": { "type": "string", "minLength": 1 },
+            "guidelines_url": { "oneOf": [{ "$ref": "#/$defs/httpUrl" }, { "type": "null" }] },
+            "mcp_write_level": { "type": ["string", "null"] },
+            "cost": { "type": "string" },
+            "last_verified": { "type": "string", "format": "date" }
+          },
+          "additionalProperties": true
+        },
+        "requirements": {
+          "type": "object",
+          "required": ["minimum_stars", "minimum_project_age_days", "open_source_required", "rules_summary"],
+          "properties": {
+            "minimum_stars": { "$ref": "#/$defs/nullableNonNegativeInteger" },
+            "minimum_project_age_days": { "$ref": "#/$defs/nullableNonNegativeInteger" },
+            "open_source_required": { "type": ["boolean", "null"] },
+            "rules_summary": { "type": "array", "items": { "type": "string" } }
+          },
+          "additionalProperties": true
+        },
+        "automation": {
+          "type": "object",
+          "required": ["machine_submittable", "agent_automatable_via"],
+          "properties": {
+            "machine_submittable": { "type": "boolean" },
+            "agent_automatable_via": { "type": "array", "items": { "type": "string" } }
+          },
+          "additionalProperties": true
+        },
+        "repository": { "type": "object" },
+        "metrics": { "type": "object" },
+        "verification": {
+          "type": "object",
+          "required": ["status", "checked_at"],
+          "properties": {
+            "status": { "type": "string", "minLength": 1 },
+            "checked_at": { "type": "string", "format": "date" },
+            "note": { "type": ["string", "null"] }
+          },
+          "additionalProperties": true
+        },
+        "evidence": { "type": "array", "items": { "type": "object" } },
+        "source": { "type": "object" },
+        "tags": { "type": "array", "uniqueItems": true, "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "page_size": 25,
+  "queries": [
+    {
+      "name": "established-awesome-lists",
+      "query": "topic:awesome-list archived:false fork:false stars:>=100 pushed:>=2024-01-01 sort:stars-desc",
+      "limit": 1000
+    },
+    {
+      "name": "growing-awesome-lists",
+      "query": "topic:awesome-list archived:false fork:false stars:20..99 pushed:>=2024-01-01 sort:stars-desc",
+      "limit": 250
+    }
+  ]
+}

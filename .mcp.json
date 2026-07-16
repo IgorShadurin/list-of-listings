@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "list-of-listings": {
+      "command": "npm",
+      "args": ["run", "mcp", "--silent"]
+    }
+  }
+}
