@@ -18,152 +18,11 @@
 > [!IMPORTANT]
 > A listing is a submission lead, not an acceptance guarantee. Rules, prices, queues, and submission status change. Check the linked destination before publishing, and never automate voting, CAPTCHA bypass, or unsolicited mass submissions.
 
-## At a glance
+## Complete catalog
 
-| Catalog | Count | What it means |
-|---|---:|---|
-| All deduplicated listings | **1,387** | GitHub curated lists, web launch channels, and MCP publishing targets |
-| GitHub-hosted curated lists | **787** | Active, non-fork awesome-list repositories found with recorded `gh` queries |
-| Web directories and communities | **579** | Imported from an attributed open dataset; individual availability needs rechecking |
-| Listings with rules or a rules link | **591** | A contribution file, hard rule, or manually verified requirement is available |
-| Primary-source verified channels | **72** | High-value web and MCP targets checked against first-party publishing documentation |
-| MCP-native write targets | **13** | The documented workflow can publish through an MCP tool, not merely discover through MCP |
-| Definite dead links excluded | **37** | Source-claimed web rows still returning HTTP 404 or 410 after a GET retry were removed |
-| Off-topic GitHub candidates excluded | **466** | Topic matches lacking list semantics, project-artifact fit, or a contribution signal were removed |
-| GitHub stars represented | **4,899,414** | Popularity signal only; stars do not prove acceptance |
+Browse all **1,387** entries by category. Every category is expanded by default; select its heading to collapse or reopen it. Descriptions are compact here, while full records and provenance live in [`data/listings.json`](data/listings.json).
 
-### Choose a path
-
-| You are publishing… | Start with | Useful filter |
-|---|---|---|
-| An open-source library or developer tool | GitHub curated lists + package registries in web channels | `npm run search -- --accepts library --platform github` |
-| A commercial app, SaaS, or website | Launch and product directories | `npm run search -- --category launch --accepts app --platform web` |
-| An AI tool, open or commercial | AI directories and AI-focused awesome lists | `npm run search -- --accepts ai-tool` |
-| An MCP server | Official registry, MCP directories, Docker/Cline lists | `npm run search -- --accepts mcp-server` |
-| A site or app directly from an agent | MCP-native hosting/deployment targets | `npm run search -- --mcp-write native` |
-| This catalog or another curated list | Meta-lists | `npm run search -- --accepts curated-list` |
-
-## Search and automate
-
-The generated [`data/listings.json`](data/listings.json) file is the source for machines. Search uses all text fields and supports composable filters:
-
-```bash
-npm install
-npm run search -- --query "python machine learning" --accepts library --min-stars 100
-npm run search -- --platform web --category "AI" --cost free --limit 25
-npm run search -- --mcp-write native --accepts website --json
-```
-
-Run `npm run search -- --help` for every filter. The model is explained in [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md), described by [`schemas/catalog.schema.json`](schemas/catalog.schema.json), and checked with `npm run validate`.
-
-### MCP server
-
-This repository is itself **MCP-curated**. Its local stdio server lets an agent search and recommend channels, inspect one entry, validate a proposed listing, and add a proposal to the review queue:
-
-- `search_listings` — ranked full-text search with platform, category, accepted-type, cost, and MCP filters.
-- `get_listing` — return one complete record by stable ID.
-- `recommend_listings` — match a project description and publishing needs to suitable channels.
-- `validate_listing` — check a candidate without changing files.
-- `propose_listing` — append a deduplicated, pending-review candidate to `data/candidates.json`; it never silently enters the curated catalog.
-
-```json
-{
-  "mcpServers": {
-    "list-of-listings": {
-      "command": "npm",
-      "args": ["run", "mcp", "--silent"],
-      "cwd": "/absolute/path/to/list-of-listings"
-    }
-  }
-}
-```
-
-## MCP-curated, agent-ready publishing
-
-`MCP-native` means an MCP tool can perform the write. `MCP workflow` means MCP guides or invokes a companion CLI. `Indirect via GitHub MCP` means an agent can prepare an issue or PR, but the target itself has no native MCP submission tool. Ordinary MCP directories are not mislabeled as MCP-writable.
-
-| Listing | Accepts | How to submit / detected rules | Signals |
-|---|---|---|---|
-| [Awesome MCP Servers](https://github.com/punkpeye/awesome-mcp-servers)<br><sub>Community-maintained awesome list of MCP servers accepting additions by pull request.</sub> | mcp server, open source project | [pull request](https://github.com/punkpeye/awesome-mcp-servers/pulls)<br><sub>Add a repository link and concise, accurate description.</sub> | MCP: indirect via github mcp<br><sub>verified</sub> |
-| [BrewPage](https://brewpage.app/api)<br><sub>MCP publisher for HTML, Markdown, files, JSON, key-value data, and multi-file sites.</sub> | website, app | [mcp tool](https://brewpage.app/api)<br><sub>Default retention is 15 days; maximum retention is 30 days.</sub> | MCP: native write<br><sub>verified</sub> |
-| [Cline MCP Marketplace](https://github.com/cline/mcp-marketplace)<br><sub>Cline's curated MCP marketplace accepts candidates through a structured GitHub issue.</sub> | mcp server, open source project | [github issue](https://github.com/cline/mcp-marketplace/issues/new/choose)<br><sub>Provide the repository URL, a 400×400 PNG icon, and a reason for inclus…</sub> | MCP: indirect via github mcp<br><sub>verified</sub> |
-| [Cloudflare MCP Server](https://github.com/cloudflare/mcp)<br><sub>Official MCP endpoint can execute Cloudflare API operations, including Workers and Pages pu…</sub> | website, app | [mcp tool](https://mcp.cloudflare.com/mcp) · freemium<br><sub>This is a broad API executor, not a dedicated one-call publisher.</sub> | MCP: native write general api<br><sub>verified</sub> |
-| [DigitalOcean App Platform MCP](https://docs.digitalocean.com/products/app-platform/reference/mcp)<br><sub>Official App Platform MCP server for creating, deploying, and redeploying applications from…</sub> | app, website | [mcp tool](https://apps.mcp.digitalocean.com/mcp) · paid or trial<br><sub>Use a permission-scoped DigitalOcean token.</sub> | MCP: native write<br><sub>verified</sub> |
-| [Docker Hub MCP Server](https://github.com/docker/hub-mcp)<br><sub>Official MCP server that creates and updates Docker Hub repositories; image pushing may sti…</sub> | app, library, open source project | [mcp tool](https://github.com/docker/hub-mcp) · freemium<br><sub>Repository metadata writes are verified; direct image upload through an…</sub> | MCP: native write<br><sub>verified-partial</sub> |
-| [Docker MCP Registry](https://github.com/docker/mcp-registry)<br><sub>Docker-maintained registry accepting reviewed MCP server additions by pull request.</sub> | mcp server, open source project | [pull request](https://github.com/docker/mcp-registry/pulls)<br><sub>Provide a Docker-built or self-provided image.</sub> | MCP: indirect via github mcp<br><sub>verified</sub> |
-| [Drawer](https://drawer.so/)<br><sub>MCP-native artifact publisher for HTML, Markdown, PDFs, images, and zipped multi-file sites.</sub> | website, app | [mcp tool](https://drawer.so/mcp) · freemium<br><sub>Maximum documented artifact size is 100 MB.</sub> | MCP: native write<br><sub>verified</sub> |
-| [Firebase MCP Server](https://firebase.google.com/docs/ai-assistance/mcp-server)<br><sub>Official Firebase MCP server with a guided deployment prompt and project-management tools.</sub> | website, app | [mcp workflow](https://firebase.google.com/docs/ai-assistance/mcp-server) · freemium<br><sub>Deployment is documented as a guided MCP/CLI prompt, not a single direc…</sub> | MCP: mcp workflow<br><sub>verified-partial</sub> |
-| [GitHub MCP Server](https://github.com/github/github-mcp-server)<br><sub>Official GitHub MCP server for creating repositories, writing files, pushing code, and open…</sub> | app, website, library | [mcp tool](https://github.com/github/github-mcp-server) · freemium<br><sub>Grant only the repository permissions the workflow needs.</sub> | MCP: native write<br><sub>verified</sub> |
-| [Glama MCP Directory](https://glama.ai/mcp/servers)<br><sub>Large MCP directory and hosting platform that adds servers from GitHub repositories.</sub> | mcp server | [github app](https://glama.ai/mcp/servers) · freemium<br><sub>Add Server accepts a GitHub repository and indexes its tools and schema…</sub> | verified<br><sub>checked 2026-07-16</sub> |
-| [Heroku MCP Server](https://github.com/heroku/heroku-mcp-server)<br><sub>Heroku's MCP server creates applications and deploys projects to Heroku.</sub> | app, website | [mcp tool](https://github.com/heroku/heroku-mcp-server) · paid or trial<br><sub>no hard threshold detected</sub> | MCP: native write<br><sub>verified</sub> |
-| [MCP Central](https://mcpcentral.io/)<br><sub>Independent MCP registry with an mcp-publisher-compatible submission endpoint and discovery…</sub> | mcp server | [cli api](https://mcpcentral.io/submit-server)<br><sub>Its discovery MCP searches and executes catalog tools but is not docume…</sub> | MCP: api cli only<br><sub>verified</sub> |
-| [MCP Market](https://mcpmarket.com/)<br><sub>Commercial MCP directory with paid expedited and slower free submission queues.</sub> | mcp server | [web form](https://mcpmarket.com/submit) · free or paid<br><sub>The page advertises a paid expedited listing and a slower free queue.</sub> | verified<br><sub>checked 2026-07-16</sub> |
-| [mcp.so](https://mcp.so/)<br><sub>MCP server directory with a current manual submission form.</sub> | mcp server | [web form](https://mcp.so/submit)<br><sub>Provide type, name, URL, and server configuration.</sub> | verified<br><sub>checked 2026-07-16</sub> |
-| [mcpub](https://mcpub.dev/)<br><sub>Open MCP directory whose own MCP endpoint exposes a submit tool.</sub> | mcp server | [mcp tool](https://mcpub.dev/mcp)<br><sub>The target endpoint must respond.</sub> | MCP: native write<br><sub>verified</sub> |
-| [md.page](https://md.page/)<br><sub>Small MCP publisher that turns Markdown into a shareable web page.</sub> | website | [mcp tool](https://md.page/)<br><sub>Public retention and authentication rules are not stated; verify before…</sub> | MCP: native write<br><sub>verified</sub> |
-| [Netlify MCP Server](https://docs.netlify.com/build/build-with-ai/netlify-mcp-server)<br><sub>Official MCP server that creates Netlify projects and builds and manages site deployments.</sub> | website, app | [mcp tool](https://docs.netlify.com/build/build-with-ai/netlify-mcp-server/) · freemium<br><sub>Requires Node.js 22 or newer for the documented npx setup.</sub> | MCP: native write<br><sub>verified</sub> |
-| [Official MCP Registry](https://registry.modelcontextprotocol.io/)<br><sub>Community-driven official registry for publishing metadata about public MCP servers.</sub> | mcp server | [cli api](https://modelcontextprotocol.io/registry/quickstart)<br><sub>Publish the package first or expose a publicly reachable remote server.</sub> | MCP: api cli only<br><sub>verified-preview</sub> |
-| [PulseMCP](https://www.pulsemcp.com/servers)<br><sub>Curated MCP directory that accepts manual submissions and ingests public registry data.</sub> | mcp server | [web form](https://www.pulsemcp.com/submit)<br><sub>Submissions are curated and enriched.</sub> | verified<br><sub>checked 2026-07-16</sub> |
-| [Railway MCP Server](https://docs.railway.com/ai/mcp-server)<br><sub>Official MCP interface for creating Railway projects and deploying services and templates.</sub> | app, website | [mcp tool](https://mcp.railway.com) · freemium<br><sub>Destructive operations are intentionally excluded from the server.</sub> | MCP: native write<br><sub>verified</sub> |
-| [Smithery](https://smithery.ai/)<br><sub>MCP server registry and hosting platform with authenticated REST and SDK publication APIs.</sub> | mcp server | [cli api](https://smithery.mintlify.app/api-reference/servers/publish-a-server) · freemium<br><sub>Supports hosted JavaScript upload, an external URL, or stdio MCPB packa…</sub> | MCP: api cli only<br><sub>verified</sub> |
-| [Vercel MCP](https://vercel.com/docs/agent-resources/vercel-mcp)<br><sub>Vercel's hosted MCP endpoint includes a tool for deploying web applications to Vercel.</sub> | website, app | [mcp tool](https://mcp.vercel.com) · freemium<br><sub>Feature is beta and limited to supported MCP clients.</sub> | MCP: native write<br><sub>verified-beta</sub> |
-| [WebsitePublisher.ai](https://github.com/megberts/mcp-websitepublisher-ai)<br><sub>MCP-native multi-page website publisher with assets, records, forms, authentication, and in…</sub> | website, app | [mcp tool](https://mcp.websitepublisher.ai/) · freemium<br><sub>The documented free plan allows one project and five pages without a cu…</sub> | MCP: native write<br><sub>verified</sub> |
-
-## Highlights
-
-### Popular GitHub lists
-
-| Listing | Accepts | How to submit / detected rules | Signals |
-|---|---|---|---|
-| [avelino/awesome-go](https://github.com/avelino/awesome-go)<br><sub>A curated list of awesome Go frameworks, libraries and software</sub> | library, app | [pull request](https://github.com/avelino/awesome-go/pulls) · [rules](https://github.com/avelino/awesome-go/blob/main/CONTRIBUTING.md)<br><sub>≥150 days old; open source required; Keep entries in alphabetical order.</sub> | ⭐ 178,285<br><sub>created 2014-07-06 · pushed 2026-07-15</sub> |
-| [f/prompts.chat](https://github.com/f/prompts.chat)<br><sub>f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Fr…</sub> | ai tool, open source project | [pull request](https://github.com/f/prompts.chat/pulls) · [rules](https://github.com/f/prompts.chat/blob/main/CONTRIBUTING.md)<br><sub>no hard threshold detected</sub> | ⭐ 165,837<br><sub>created 2022-12-05 · pushed 2026-07-16</sub> |
-| [ripienaar/free-for-dev](https://github.com/ripienaar/free-for-dev)<br><sub>A list of SaaS, PaaS and IaaS offerings that have free tiers of interest to devops and infr…</sub> | app | [pull request](https://github.com/ripienaar/free-for-dev/pulls) · [rules](https://github.com/ripienaar/free-for-dev/blob/master/CONTRIBUTING.md)<br><sub>no hard threshold detected</sub> | ⭐ 129,453<br><sub>created 2015-03-18 · pushed 2026-07-15</sub> |
-| [jaywcjlove/awesome-mac](https://github.com/jaywcjlove/awesome-mac)<br><sub> This project is dedicated to collecting high-quality macOS software and organizing them s…</sub> | app | [pull request](https://github.com/jaywcjlove/awesome-mac/pulls)<br><sub>no hard threshold detected</sub> | ⭐ 107,910<br><sub>created 2016-07-17 · pushed 2026-07-16</sub> |
-| [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md)<br><sub>A collection of DESIGN.md files analysis by popular brand design systems. Drop one into you…</sub> | project | [pull request](https://github.com/VoltAgent/awesome-design-md/pulls) · [rules](https://github.com/VoltAgent/awesome-design-md/blob/main/CONTRIBUTING.md)<br><sub>no hard threshold detected</sub> | ⭐ 102,197<br><sub>created 2026-03-31 · pushed 2026-06-16</sub> |
-| [MunGell/awesome-for-beginners](https://github.com/MunGell/awesome-for-beginners)<br><sub>A list of awesome beginners-friendly projects.</sub> | project | [pull request](https://github.com/MunGell/awesome-for-beginners/pulls) · [rules](https://github.com/MunGell/awesome-for-beginners/blob/main/CONTRIBUTING.md)<br><sub>open source required; Include a concise description.</sub> | ⭐ 87,450<br><sub>created 2015-10-24 · pushed 2026-06-13</sub> |
-| [enaqx/awesome-react](https://github.com/enaqx/awesome-react)<br><sub>A collection of awesome things regarding React ecosystem</sub> | project | [pull request](https://github.com/enaqx/awesome-react/pulls)<br><sub>no hard threshold detected</sub> | ⭐ 73,963<br><sub>created 2014-08-06 · pushed 2026-06-02</sub> |
-| [binhnguyennus/awesome-scalability](https://github.com/binhnguyennus/awesome-scalability)<br><sub>The Patterns of Scalable, Reliable, and Performant Large-Scale Systems</sub> | project | [pull request](https://github.com/binhnguyennus/awesome-scalability/pulls) · [rules](https://github.com/binhnguyennus/awesome-scalability/blob/master/CONTRIBUTING.md)<br><sub>no hard threshold detected</sub> | ⭐ 72,434<br><sub>created 2017-12-27 · pushed 2026-01-04</sub> |
-| [fffaraz/awesome-cpp](https://github.com/fffaraz/awesome-cpp)<br><sub>A curated list of awesome C++ (or C) frameworks, libraries, resources, and shiny things. In…</sub> | library | [pull request](https://github.com/fffaraz/awesome-cpp/pulls) · [rules](https://github.com/fffaraz/awesome-cpp/blob/master/CONTRIBUTING.md)<br><sub>Keep entries in alphabetical order.</sub> | ⭐ 72,261<br><sub>created 2014-07-17 · pushed 2026-07-11</sub> |
-| [Solido/awesome-flutter](https://github.com/Solido/awesome-flutter)<br><sub>An awesome list that curates the best Flutter libraries, tools, tutorials, articles and mor…</sub> | library, app, plugin | [pull request](https://github.com/Solido/awesome-flutter/pulls) · [rules](https://github.com/Solido/awesome-flutter/blob/master/contributing.md)<br><sub>≥35 stars; Include a concise description.</sub> | ⭐ 60,609<br><sub>created 2017-05-07 · pushed 2026-04-21</sub> |
-| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code)<br><sub>A hand-picked collection of the finest of resources for the most awesome of agents, Claude…</sub> | ai tool | [pull request](https://github.com/hesreallyhim/awesome-claude-code/pulls) · [rules](https://github.com/hesreallyhim/awesome-claude-code/blob/main/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 50,126<br><sub>created 2025-04-19 · pushed 2026-07-16</sub> |
-| [serhii-londar/open-source-mac-os-apps](https://github.com/serhii-londar/open-source-mac-os-apps)<br><sub>🚀 Awesome list of open source applications for macOS. https://t.me/s/opensourcemacosapps</sub> | app, open source project | [pull request](https://github.com/serhii-londar/open-source-mac-os-apps/pulls) · [rules](https://github.com/serhii-londar/open-source-mac-os-apps/blob/master/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 49,627<br><sub>created 2017-11-03 · pushed 2026-04-15</sub> |
-| [akullpp/awesome-java](https://github.com/akullpp/awesome-java)<br><sub>A curated list of awesome frameworks, libraries and software for the Java programming langu…</sub> | library, app | [pull request](https://github.com/akullpp/awesome-java/pulls) · [rules](https://github.com/akullpp/awesome-java/blob/master/CONTRIBUTING.md)<br><sub>open source required; Keep entries in alphabetical order.</sub> | ⭐ 48,478<br><sub>created 2014-07-09 · pushed 2026-07-06</sub> |
-| [brillout/awesome-react-components](https://github.com/brillout/awesome-react-components)<br><sub>Curated List of React Components & Libraries.</sub> | library | [pull request](https://github.com/brillout/awesome-react-components/pulls) · [rules](https://github.com/brillout/awesome-react-components/blob/master/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 47,988<br><sub>created 2016-06-24 · pushed 2026-01-26</sub> |
-| [PatrickJS/awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules)<br><sub>📄 Configuration files that enhance Cursor AI editor experience with custom rules and behav…</sub> | ai tool | [pull request](https://github.com/PatrickJS/awesome-cursorrules/pulls) · [rules](https://github.com/PatrickJS/awesome-cursorrules/blob/main/contributing.md)<br><sub>Include a visible software license.</sub> | ⭐ 40,331<br><sub>created 2024-09-16 · pushed 2026-05-30</sub> |
-
-### AI discovery channels
-
-| Listing | Accepts | How to submit / detected rules | Signals |
-|---|---|---|---|
-| [f/prompts.chat](https://github.com/f/prompts.chat)<br><sub>f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Fr…</sub> | ai tool, open source project | [pull request](https://github.com/f/prompts.chat/pulls) · [rules](https://github.com/f/prompts.chat/blob/main/CONTRIBUTING.md)<br><sub>no hard threshold detected</sub> | ⭐ 165,837<br><sub>created 2022-12-05 · pushed 2026-07-16</sub> |
-| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code)<br><sub>A hand-picked collection of the finest of resources for the most awesome of agents, Claude…</sub> | ai tool | [pull request](https://github.com/hesreallyhim/awesome-claude-code/pulls) · [rules](https://github.com/hesreallyhim/awesome-claude-code/blob/main/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 50,126<br><sub>created 2025-04-19 · pushed 2026-07-16</sub> |
-| [PatrickJS/awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules)<br><sub>📄 Configuration files that enhance Cursor AI editor experience with custom rules and behav…</sub> | ai tool | [pull request](https://github.com/PatrickJS/awesome-cursorrules/pulls) · [rules](https://github.com/PatrickJS/awesome-cursorrules/blob/main/contributing.md)<br><sub>Include a visible software license.</sub> | ⭐ 40,331<br><sub>created 2024-09-16 · pushed 2026-05-30</sub> |
-| [The-Art-of-Hacking/h4cker](https://github.com/The-Art-of-Hacking/h4cker)<br><sub>This repository is maintained by Omar Santos (@santosomar) and includes thousands of resour…</sub> | ai tool | [pull request](https://github.com/The-Art-of-Hacking/h4cker/pulls) · [rules](https://github.com/The-Art-of-Hacking/h4cker/blob/master/CONTRIBUTING.md)<br><sub>no hard threshold detected</sub> | ⭐ 28,451<br><sub>created 2017-06-19 · pushed 2026-06-29</sub> |
-| [aishwaryanr/awesome-generative-ai-guide](https://github.com/aishwaryanr/awesome-generative-ai-guide)<br><sub>A one stop repository for generative AI research updates, interview resources, notebooks an…</sub> | ai tool | [pull request](https://github.com/aishwaryanr/awesome-generative-ai-guide/pulls)<br><sub>no hard threshold detected</sub> | ⭐ 28,279<br><sub>created 2024-02-06 · pushed 2026-07-16</sub> |
-| [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)<br><sub>A curated collection of 1000+ agent skills from official dev teams and the community, compa…</sub> | ai tool, app | [pull request](https://github.com/VoltAgent/awesome-agent-skills/pulls) · [rules](https://github.com/VoltAgent/awesome-agent-skills/blob/main/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 28,183<br><sub>created 2025-10-28 · pushed 2026-07-10</sub> |
-| [enescingoz/awesome-n8n-templates](https://github.com/enescingoz/awesome-n8n-templates)<br><sub>280+ free n8n automation templates — ready-to-use workflows for Gmail, Telegram, Slack, Dis…</sub> | ai tool, plugin, open source project | [pull request](https://github.com/enescingoz/awesome-n8n-templates/pulls) · [rules](https://github.com/enescingoz/awesome-n8n-templates/blob/main/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 23,906<br><sub>created 2025-05-08 · pushed 2026-07-15</sub> |
-| [VoltAgent/awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents)<br><sub>A collection of 100+ specialized Claude Code subagents covering a wide range of development…</sub> | ai tool, library | [pull request](https://github.com/VoltAgent/awesome-claude-code-subagents/pulls) · [rules](https://github.com/VoltAgent/awesome-claude-code-subagents/blob/main/CONTRIBUTING.md)<br><sub>Keep entries in alphabetical order.</sub> | ⭐ 23,377<br><sub>created 2025-07-30 · pushed 2026-07-10</sub> |
-| [EthicalML/awesome-production-machine-learning](https://github.com/EthicalML/awesome-production-machine-learning)<br><sub>A curated list of awesome open source libraries to deploy, monitor, version and scale your…</sub> | ai tool, library, open source project | [pull request](https://github.com/EthicalML/awesome-production-machine-learning/pulls) · [rules](https://github.com/EthicalML/awesome-production-machine-learning/blob/master/CONTRIBUTING.md)<br><sub>≥500 stars; Keep entries in alphabetical order.</sub> | ⭐ 20,781<br><sub>created 2018-08-15 · pushed 2026-07-14</sub> |
-| [ujjwalkarn/Machine-Learning-Tutorials](https://github.com/ujjwalkarn/Machine-Learning-Tutorials)<br><sub>machine learning and deep learning tutorials, articles and other resources</sub> | ai tool | [pull request](https://github.com/ujjwalkarn/Machine-Learning-Tutorials/pulls) · [rules](https://github.com/ujjwalkarn/Machine-Learning-Tutorials/blob/master/contributing.md)<br><sub>no hard threshold detected</sub> | ⭐ 18,004<br><sub>created 2015-09-12 · pushed 2024-06-12</sub> |
-| [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills)<br><sub>A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI wor…</sub> | ai tool, app | [pull request](https://github.com/travisvn/awesome-claude-skills/pulls) · [rules](https://github.com/travisvn/awesome-claude-skills/blob/main/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 14,138<br><sub>created 2025-10-16 · pushed 2026-04-28</sub> |
-| [YouMind-OpenLab/awesome-nano-banana-pro-prompts](https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts)<br><sub>🍌 World's largest Nano Banana Pro prompt library — 10,000+ curated prompts with preview im…</sub> | ai tool, library, open source project | [pull request](https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/pulls)<br><sub>no hard threshold detected</sub> | ⭐ 12,851<br><sub>created 2025-11-23 · pushed 2026-07-16</sub> |
-| [steven2358/awesome-generative-ai](https://github.com/steven2358/awesome-generative-ai)<br><sub>A curated list of modern Generative Artificial Intelligence projects and services</sub> | ai tool | [pull request](https://github.com/steven2358/awesome-generative-ai/pulls) · [rules](https://github.com/steven2358/awesome-generative-ai/blob/main/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 12,332<br><sub>created 2022-10-20 · pushed 2026-06-28</sub> |
-| [EmbraceAGI/awesome-chatgpt-zh](https://github.com/EmbraceAGI/awesome-chatgpt-zh)<br><sub>ChatGPT 中文指南🔥，ChatGPT 中文调教指南，指令指南，应用开发指南，精选资源清单，更好的使用 chatGPT 让你的生产力 up up up! 🚀</sub> | ai tool | [pull request](https://github.com/EmbraceAGI/awesome-chatgpt-zh/pulls)<br><sub>no hard threshold detected</sub> | ⭐ 11,596<br><sub>created 2023-03-21 · pushed 2026-07-03</sub> |
-| [kyrolabs/awesome-langchain](https://github.com/kyrolabs/awesome-langchain)<br><sub>😎 Awesome list of tools and projects with the awesome LangChain framework</sub> | ai tool, library | [pull request](https://github.com/kyrolabs/awesome-langchain/pulls) · [rules](https://github.com/kyrolabs/awesome-langchain/blob/main/contributing.md)<br><sub>open source required; Project must be open source.</sub> | ⭐ 9,455<br><sub>created 2023-02-28 · pushed 2026-04-26</sub> |
-
-## Reading the evidence
-
-| Status | Interpretation |
-|---|---|
-| `verified*` | Manually checked against linked primary documentation on the catalog date. Qualifiers such as beta or partial still matter. |
-| `strong-signal` | GitHub has a detected contribution file and merged-PR activity. The project-fit rules still need human review. |
-| `probable` | GitHub has either documented contribution guidance or merged-PR activity. Listing-specific acceptance is not guaranteed. |
-| `discovery-only` | Found through the awesome-list topic, without enough automated evidence to claim open submissions. Check first. |
-| `source-claimed` | An attributed dataset says the web channel accepts listings; this project has not manually reverified that individual row. |
-
-Unknown thresholds are stored as `null`, not `0` or `false`. Repository creation dates, first releases, and a venue's minimum project-age rule are separate facts.
-
-## Category index
+### Categories
 
 | Category | Listings |
 |---|---:|
@@ -192,11 +51,7 @@ Unknown thresholds are stored as `null`, not `0` or `false`. Repository creation
 | [Software Directories & Reviews](#software-directories-reviews) | 45 |
 | [Web Development](#web-development) | 79 |
 
-## Complete catalog
-
-All **1,387** entries below are generated from JSON. Descriptions are compact here; the complete structured record, provenance, and metrics live in [`data/listings.json`](data/listings.json).
-
-<details id="ai-machine-learning">
+<details open id="ai-machine-learning">
 <summary><strong>AI & Machine Learning</strong> — 171 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -375,7 +230,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="app-extension-stores">
+<details open id="app-extension-stores">
 <summary><strong>App & Extension Stores</strong> — 8 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -391,7 +246,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="blockchain-web3">
+<details open id="blockchain-web3">
 <summary><strong>Blockchain & Web3</strong> — 3 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -402,7 +257,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="business-productivity">
+<details open id="business-productivity">
 <summary><strong>Business & Productivity</strong> — 2 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -412,7 +267,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="communities-media">
+<details open id="communities-media">
 <summary><strong>Communities & Media</strong> — 44 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -464,7 +319,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="data-databases-apis">
+<details open id="data-databases-apis">
 <summary><strong>Data, Databases & APIs</strong> — 42 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -514,7 +369,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="design-creative">
+<details open id="design-creative">
 <summary><strong>Design & Creative</strong> — 10 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -532,7 +387,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="developer-tools">
+<details open id="developer-tools">
 <summary><strong>Developer Tools</strong> — 100 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -640,7 +495,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="devops-cloud-infrastructure">
+<details open id="devops-cloud-infrastructure">
 <summary><strong>DevOps, Cloud & Infrastructure</strong> — 33 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -681,7 +536,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="games">
+<details open id="games">
 <summary><strong>Games</strong> — 2 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -691,7 +546,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="games-digital-assets">
+<details open id="games-digital-assets">
 <summary><strong>Games & Digital Assets</strong> — 3 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -702,7 +557,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="general-project-discovery">
+<details open id="general-project-discovery">
 <summary><strong>General Project Discovery</strong> — 127 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -837,7 +692,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="integration-marketplaces">
+<details open id="integration-marketplaces">
 <summary><strong>Integration Marketplaces</strong> — 7 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -852,7 +707,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="languages-frameworks">
+<details open id="languages-frameworks">
 <summary><strong>Languages & Frameworks</strong> — 77 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -937,7 +792,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="launch-product-directories">
+<details open id="launch-product-directories">
 <summary><strong>Launch & Product Directories</strong> — 399 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1344,7 +1199,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="mcp-agent-publishing">
+<details open id="mcp-agent-publishing">
 <summary><strong>MCP & Agent Publishing</strong> — 62 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1414,7 +1269,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="mobile-desktop">
+<details open id="mobile-desktop">
 <summary><strong>Mobile & Desktop</strong> — 40 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1462,7 +1317,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="open-source-self-hosted">
+<details open id="open-source-self-hosted">
 <summary><strong>Open Source & Self-hosted</strong> — 32 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1502,7 +1357,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="package-developer-registries">
+<details open id="package-developer-registries">
 <summary><strong>Package & Developer Registries</strong> — 16 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1526,7 +1381,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="regional-directories">
+<details open id="regional-directories">
 <summary><strong>Regional Directories</strong> — 2 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1536,7 +1391,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="science-education">
+<details open id="science-education">
 <summary><strong>Science & Education</strong> — 16 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1560,7 +1415,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="security-privacy">
+<details open id="security-privacy">
 <summary><strong>Security & Privacy</strong> — 67 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1635,7 +1490,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="software-directories-reviews">
+<details open id="software-directories-reviews">
 <summary><strong>Software Directories & Reviews</strong> — 45 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1688,7 +1543,7 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 
 </details>
 
-<details id="web-development">
+<details open id="web-development">
 <summary><strong>Web Development</strong> — 79 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1774,6 +1629,151 @@ All **1,387** entries below are generated from JSON. Descriptions are compact he
 | [Hashnode/awesome-docs-gallery](https://github.com/Hashnode/awesome-docs-gallery) — A crowdsourced, open-so… | open source project | [submit](https://github.com/Hashnode/awesome-docs-gallery/pulls) · [rules](https://github.com/Hashnode/awesome-docs-gallery/blob/main/CONTRIBUTING.md) · no threshold d… | ⭐ 71 · 2024-10-13 |
 
 </details>
+
+## At a glance
+
+| Catalog | Count | What it means |
+|---|---:|---|
+| All deduplicated listings | **1,387** | GitHub curated lists, web launch channels, and MCP publishing targets |
+| GitHub-hosted curated lists | **787** | Active, non-fork awesome-list repositories found with recorded `gh` queries |
+| Web directories and communities | **579** | Imported from an attributed open dataset; individual availability needs rechecking |
+| Listings with rules or a rules link | **591** | A contribution file, hard rule, or manually verified requirement is available |
+| Primary-source verified channels | **72** | High-value web and MCP targets checked against first-party publishing documentation |
+| MCP-native write targets | **13** | The documented workflow can publish through an MCP tool, not merely discover through MCP |
+| Definite dead links excluded | **37** | Source-claimed web rows still returning HTTP 404 or 410 after a GET retry were removed |
+| Off-topic GitHub candidates excluded | **466** | Topic matches lacking list semantics, project-artifact fit, or a contribution signal were removed |
+| GitHub stars represented | **4,899,414** | Popularity signal only; stars do not prove acceptance |
+
+### Choose a path
+
+| You are publishing… | Start with | Useful filter |
+|---|---|---|
+| An open-source library or developer tool | GitHub curated lists + package registries in web channels | `npm run search -- --accepts library --platform github` |
+| A commercial app, SaaS, or website | Launch and product directories | `npm run search -- --category launch --accepts app --platform web` |
+| An AI tool, open or commercial | AI directories and AI-focused awesome lists | `npm run search -- --accepts ai-tool` |
+| An MCP server | Official registry, MCP directories, Docker/Cline lists | `npm run search -- --accepts mcp-server` |
+| A site or app directly from an agent | MCP-native hosting/deployment targets | `npm run search -- --mcp-write native` |
+| This catalog or another curated list | Meta-lists | `npm run search -- --accepts curated-list` |
+
+## Search and automate
+
+The generated [`data/listings.json`](data/listings.json) file is the source for machines. Search uses all text fields and supports composable filters:
+
+```bash
+npm install
+npm run search -- --query "python machine learning" --accepts library --min-stars 100
+npm run search -- --platform web --category "AI" --cost free --limit 25
+npm run search -- --mcp-write native --accepts website --json
+```
+
+Run `npm run search -- --help` for every filter. The model is explained in [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md), described by [`schemas/catalog.schema.json`](schemas/catalog.schema.json), and checked with `npm run validate`.
+
+### MCP server
+
+This repository is itself **MCP-curated**. Its local stdio server lets an agent search and recommend channels, inspect one entry, validate a proposed listing, and add a proposal to the review queue:
+
+- `search_listings` — ranked full-text search with platform, category, accepted-type, cost, and MCP filters.
+- `get_listing` — return one complete record by stable ID.
+- `recommend_listings` — match a project description and publishing needs to suitable channels.
+- `validate_listing` — check a candidate without changing files.
+- `propose_listing` — append a deduplicated, pending-review candidate to `data/candidates.json`; it never silently enters the curated catalog.
+
+```json
+{
+  "mcpServers": {
+    "list-of-listings": {
+      "command": "npm",
+      "args": ["run", "mcp", "--silent"],
+      "cwd": "/absolute/path/to/list-of-listings"
+    }
+  }
+}
+```
+
+## MCP-curated, agent-ready publishing
+
+`MCP-native` means an MCP tool can perform the write. `MCP workflow` means MCP guides or invokes a companion CLI. `Indirect via GitHub MCP` means an agent can prepare an issue or PR, but the target itself has no native MCP submission tool. Ordinary MCP directories are not mislabeled as MCP-writable.
+
+| Listing | Accepts | How to submit / detected rules | Signals |
+|---|---|---|---|
+| [Awesome MCP Servers](https://github.com/punkpeye/awesome-mcp-servers)<br><sub>Community-maintained awesome list of MCP servers accepting additions by pull request.</sub> | mcp server, open source project | [pull request](https://github.com/punkpeye/awesome-mcp-servers/pulls)<br><sub>Add a repository link and concise, accurate description.</sub> | MCP: indirect via github mcp<br><sub>verified</sub> |
+| [BrewPage](https://brewpage.app/api)<br><sub>MCP publisher for HTML, Markdown, files, JSON, key-value data, and multi-file sites.</sub> | website, app | [mcp tool](https://brewpage.app/api)<br><sub>Default retention is 15 days; maximum retention is 30 days.</sub> | MCP: native write<br><sub>verified</sub> |
+| [Cline MCP Marketplace](https://github.com/cline/mcp-marketplace)<br><sub>Cline's curated MCP marketplace accepts candidates through a structured GitHub issue.</sub> | mcp server, open source project | [github issue](https://github.com/cline/mcp-marketplace/issues/new/choose)<br><sub>Provide the repository URL, a 400×400 PNG icon, and a reason for inclus…</sub> | MCP: indirect via github mcp<br><sub>verified</sub> |
+| [Cloudflare MCP Server](https://github.com/cloudflare/mcp)<br><sub>Official MCP endpoint can execute Cloudflare API operations, including Workers and Pages pu…</sub> | website, app | [mcp tool](https://mcp.cloudflare.com/mcp) · freemium<br><sub>This is a broad API executor, not a dedicated one-call publisher.</sub> | MCP: native write general api<br><sub>verified</sub> |
+| [DigitalOcean App Platform MCP](https://docs.digitalocean.com/products/app-platform/reference/mcp)<br><sub>Official App Platform MCP server for creating, deploying, and redeploying applications from…</sub> | app, website | [mcp tool](https://apps.mcp.digitalocean.com/mcp) · paid or trial<br><sub>Use a permission-scoped DigitalOcean token.</sub> | MCP: native write<br><sub>verified</sub> |
+| [Docker Hub MCP Server](https://github.com/docker/hub-mcp)<br><sub>Official MCP server that creates and updates Docker Hub repositories; image pushing may sti…</sub> | app, library, open source project | [mcp tool](https://github.com/docker/hub-mcp) · freemium<br><sub>Repository metadata writes are verified; direct image upload through an…</sub> | MCP: native write<br><sub>verified-partial</sub> |
+| [Docker MCP Registry](https://github.com/docker/mcp-registry)<br><sub>Docker-maintained registry accepting reviewed MCP server additions by pull request.</sub> | mcp server, open source project | [pull request](https://github.com/docker/mcp-registry/pulls)<br><sub>Provide a Docker-built or self-provided image.</sub> | MCP: indirect via github mcp<br><sub>verified</sub> |
+| [Drawer](https://drawer.so/)<br><sub>MCP-native artifact publisher for HTML, Markdown, PDFs, images, and zipped multi-file sites.</sub> | website, app | [mcp tool](https://drawer.so/mcp) · freemium<br><sub>Maximum documented artifact size is 100 MB.</sub> | MCP: native write<br><sub>verified</sub> |
+| [Firebase MCP Server](https://firebase.google.com/docs/ai-assistance/mcp-server)<br><sub>Official Firebase MCP server with a guided deployment prompt and project-management tools.</sub> | website, app | [mcp workflow](https://firebase.google.com/docs/ai-assistance/mcp-server) · freemium<br><sub>Deployment is documented as a guided MCP/CLI prompt, not a single direc…</sub> | MCP: mcp workflow<br><sub>verified-partial</sub> |
+| [GitHub MCP Server](https://github.com/github/github-mcp-server)<br><sub>Official GitHub MCP server for creating repositories, writing files, pushing code, and open…</sub> | app, website, library | [mcp tool](https://github.com/github/github-mcp-server) · freemium<br><sub>Grant only the repository permissions the workflow needs.</sub> | MCP: native write<br><sub>verified</sub> |
+| [Glama MCP Directory](https://glama.ai/mcp/servers)<br><sub>Large MCP directory and hosting platform that adds servers from GitHub repositories.</sub> | mcp server | [github app](https://glama.ai/mcp/servers) · freemium<br><sub>Add Server accepts a GitHub repository and indexes its tools and schema…</sub> | verified<br><sub>checked 2026-07-16</sub> |
+| [Heroku MCP Server](https://github.com/heroku/heroku-mcp-server)<br><sub>Heroku's MCP server creates applications and deploys projects to Heroku.</sub> | app, website | [mcp tool](https://github.com/heroku/heroku-mcp-server) · paid or trial<br><sub>no hard threshold detected</sub> | MCP: native write<br><sub>verified</sub> |
+| [MCP Central](https://mcpcentral.io/)<br><sub>Independent MCP registry with an mcp-publisher-compatible submission endpoint and discovery…</sub> | mcp server | [cli api](https://mcpcentral.io/submit-server)<br><sub>Its discovery MCP searches and executes catalog tools but is not docume…</sub> | MCP: api cli only<br><sub>verified</sub> |
+| [MCP Market](https://mcpmarket.com/)<br><sub>Commercial MCP directory with paid expedited and slower free submission queues.</sub> | mcp server | [web form](https://mcpmarket.com/submit) · free or paid<br><sub>The page advertises a paid expedited listing and a slower free queue.</sub> | verified<br><sub>checked 2026-07-16</sub> |
+| [mcp.so](https://mcp.so/)<br><sub>MCP server directory with a current manual submission form.</sub> | mcp server | [web form](https://mcp.so/submit)<br><sub>Provide type, name, URL, and server configuration.</sub> | verified<br><sub>checked 2026-07-16</sub> |
+| [mcpub](https://mcpub.dev/)<br><sub>Open MCP directory whose own MCP endpoint exposes a submit tool.</sub> | mcp server | [mcp tool](https://mcpub.dev/mcp)<br><sub>The target endpoint must respond.</sub> | MCP: native write<br><sub>verified</sub> |
+| [md.page](https://md.page/)<br><sub>Small MCP publisher that turns Markdown into a shareable web page.</sub> | website | [mcp tool](https://md.page/)<br><sub>Public retention and authentication rules are not stated; verify before…</sub> | MCP: native write<br><sub>verified</sub> |
+| [Netlify MCP Server](https://docs.netlify.com/build/build-with-ai/netlify-mcp-server)<br><sub>Official MCP server that creates Netlify projects and builds and manages site deployments.</sub> | website, app | [mcp tool](https://docs.netlify.com/build/build-with-ai/netlify-mcp-server/) · freemium<br><sub>Requires Node.js 22 or newer for the documented npx setup.</sub> | MCP: native write<br><sub>verified</sub> |
+| [Official MCP Registry](https://registry.modelcontextprotocol.io/)<br><sub>Community-driven official registry for publishing metadata about public MCP servers.</sub> | mcp server | [cli api](https://modelcontextprotocol.io/registry/quickstart)<br><sub>Publish the package first or expose a publicly reachable remote server.</sub> | MCP: api cli only<br><sub>verified-preview</sub> |
+| [PulseMCP](https://www.pulsemcp.com/servers)<br><sub>Curated MCP directory that accepts manual submissions and ingests public registry data.</sub> | mcp server | [web form](https://www.pulsemcp.com/submit)<br><sub>Submissions are curated and enriched.</sub> | verified<br><sub>checked 2026-07-16</sub> |
+| [Railway MCP Server](https://docs.railway.com/ai/mcp-server)<br><sub>Official MCP interface for creating Railway projects and deploying services and templates.</sub> | app, website | [mcp tool](https://mcp.railway.com) · freemium<br><sub>Destructive operations are intentionally excluded from the server.</sub> | MCP: native write<br><sub>verified</sub> |
+| [Smithery](https://smithery.ai/)<br><sub>MCP server registry and hosting platform with authenticated REST and SDK publication APIs.</sub> | mcp server | [cli api](https://smithery.mintlify.app/api-reference/servers/publish-a-server) · freemium<br><sub>Supports hosted JavaScript upload, an external URL, or stdio MCPB packa…</sub> | MCP: api cli only<br><sub>verified</sub> |
+| [Vercel MCP](https://vercel.com/docs/agent-resources/vercel-mcp)<br><sub>Vercel's hosted MCP endpoint includes a tool for deploying web applications to Vercel.</sub> | website, app | [mcp tool](https://mcp.vercel.com) · freemium<br><sub>Feature is beta and limited to supported MCP clients.</sub> | MCP: native write<br><sub>verified-beta</sub> |
+| [WebsitePublisher.ai](https://github.com/megberts/mcp-websitepublisher-ai)<br><sub>MCP-native multi-page website publisher with assets, records, forms, authentication, and in…</sub> | website, app | [mcp tool](https://mcp.websitepublisher.ai/) · freemium<br><sub>The documented free plan allows one project and five pages without a cu…</sub> | MCP: native write<br><sub>verified</sub> |
+
+## Highlights
+
+### Popular GitHub lists
+
+| Listing | Accepts | How to submit / detected rules | Signals |
+|---|---|---|---|
+| [avelino/awesome-go](https://github.com/avelino/awesome-go)<br><sub>A curated list of awesome Go frameworks, libraries and software</sub> | library, app | [pull request](https://github.com/avelino/awesome-go/pulls) · [rules](https://github.com/avelino/awesome-go/blob/main/CONTRIBUTING.md)<br><sub>≥150 days old; open source required; Keep entries in alphabetical order.</sub> | ⭐ 178,285<br><sub>created 2014-07-06 · pushed 2026-07-15</sub> |
+| [f/prompts.chat](https://github.com/f/prompts.chat)<br><sub>f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Fr…</sub> | ai tool, open source project | [pull request](https://github.com/f/prompts.chat/pulls) · [rules](https://github.com/f/prompts.chat/blob/main/CONTRIBUTING.md)<br><sub>no hard threshold detected</sub> | ⭐ 165,837<br><sub>created 2022-12-05 · pushed 2026-07-16</sub> |
+| [ripienaar/free-for-dev](https://github.com/ripienaar/free-for-dev)<br><sub>A list of SaaS, PaaS and IaaS offerings that have free tiers of interest to devops and infr…</sub> | app | [pull request](https://github.com/ripienaar/free-for-dev/pulls) · [rules](https://github.com/ripienaar/free-for-dev/blob/master/CONTRIBUTING.md)<br><sub>no hard threshold detected</sub> | ⭐ 129,453<br><sub>created 2015-03-18 · pushed 2026-07-15</sub> |
+| [jaywcjlove/awesome-mac](https://github.com/jaywcjlove/awesome-mac)<br><sub> This project is dedicated to collecting high-quality macOS software and organizing them s…</sub> | app | [pull request](https://github.com/jaywcjlove/awesome-mac/pulls)<br><sub>no hard threshold detected</sub> | ⭐ 107,910<br><sub>created 2016-07-17 · pushed 2026-07-16</sub> |
+| [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md)<br><sub>A collection of DESIGN.md files analysis by popular brand design systems. Drop one into you…</sub> | project | [pull request](https://github.com/VoltAgent/awesome-design-md/pulls) · [rules](https://github.com/VoltAgent/awesome-design-md/blob/main/CONTRIBUTING.md)<br><sub>no hard threshold detected</sub> | ⭐ 102,197<br><sub>created 2026-03-31 · pushed 2026-06-16</sub> |
+| [MunGell/awesome-for-beginners](https://github.com/MunGell/awesome-for-beginners)<br><sub>A list of awesome beginners-friendly projects.</sub> | project | [pull request](https://github.com/MunGell/awesome-for-beginners/pulls) · [rules](https://github.com/MunGell/awesome-for-beginners/blob/main/CONTRIBUTING.md)<br><sub>open source required; Include a concise description.</sub> | ⭐ 87,450<br><sub>created 2015-10-24 · pushed 2026-06-13</sub> |
+| [enaqx/awesome-react](https://github.com/enaqx/awesome-react)<br><sub>A collection of awesome things regarding React ecosystem</sub> | project | [pull request](https://github.com/enaqx/awesome-react/pulls)<br><sub>no hard threshold detected</sub> | ⭐ 73,963<br><sub>created 2014-08-06 · pushed 2026-06-02</sub> |
+| [binhnguyennus/awesome-scalability](https://github.com/binhnguyennus/awesome-scalability)<br><sub>The Patterns of Scalable, Reliable, and Performant Large-Scale Systems</sub> | project | [pull request](https://github.com/binhnguyennus/awesome-scalability/pulls) · [rules](https://github.com/binhnguyennus/awesome-scalability/blob/master/CONTRIBUTING.md)<br><sub>no hard threshold detected</sub> | ⭐ 72,434<br><sub>created 2017-12-27 · pushed 2026-01-04</sub> |
+| [fffaraz/awesome-cpp](https://github.com/fffaraz/awesome-cpp)<br><sub>A curated list of awesome C++ (or C) frameworks, libraries, resources, and shiny things. In…</sub> | library | [pull request](https://github.com/fffaraz/awesome-cpp/pulls) · [rules](https://github.com/fffaraz/awesome-cpp/blob/master/CONTRIBUTING.md)<br><sub>Keep entries in alphabetical order.</sub> | ⭐ 72,261<br><sub>created 2014-07-17 · pushed 2026-07-11</sub> |
+| [Solido/awesome-flutter](https://github.com/Solido/awesome-flutter)<br><sub>An awesome list that curates the best Flutter libraries, tools, tutorials, articles and mor…</sub> | library, app, plugin | [pull request](https://github.com/Solido/awesome-flutter/pulls) · [rules](https://github.com/Solido/awesome-flutter/blob/master/contributing.md)<br><sub>≥35 stars; Include a concise description.</sub> | ⭐ 60,609<br><sub>created 2017-05-07 · pushed 2026-04-21</sub> |
+| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code)<br><sub>A hand-picked collection of the finest of resources for the most awesome of agents, Claude…</sub> | ai tool | [pull request](https://github.com/hesreallyhim/awesome-claude-code/pulls) · [rules](https://github.com/hesreallyhim/awesome-claude-code/blob/main/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 50,126<br><sub>created 2025-04-19 · pushed 2026-07-16</sub> |
+| [serhii-londar/open-source-mac-os-apps](https://github.com/serhii-londar/open-source-mac-os-apps)<br><sub>🚀 Awesome list of open source applications for macOS. https://t.me/s/opensourcemacosapps</sub> | app, open source project | [pull request](https://github.com/serhii-londar/open-source-mac-os-apps/pulls) · [rules](https://github.com/serhii-londar/open-source-mac-os-apps/blob/master/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 49,627<br><sub>created 2017-11-03 · pushed 2026-04-15</sub> |
+| [akullpp/awesome-java](https://github.com/akullpp/awesome-java)<br><sub>A curated list of awesome frameworks, libraries and software for the Java programming langu…</sub> | library, app | [pull request](https://github.com/akullpp/awesome-java/pulls) · [rules](https://github.com/akullpp/awesome-java/blob/master/CONTRIBUTING.md)<br><sub>open source required; Keep entries in alphabetical order.</sub> | ⭐ 48,478<br><sub>created 2014-07-09 · pushed 2026-07-06</sub> |
+| [brillout/awesome-react-components](https://github.com/brillout/awesome-react-components)<br><sub>Curated List of React Components & Libraries.</sub> | library | [pull request](https://github.com/brillout/awesome-react-components/pulls) · [rules](https://github.com/brillout/awesome-react-components/blob/master/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 47,988<br><sub>created 2016-06-24 · pushed 2026-01-26</sub> |
+| [PatrickJS/awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules)<br><sub>📄 Configuration files that enhance Cursor AI editor experience with custom rules and behav…</sub> | ai tool | [pull request](https://github.com/PatrickJS/awesome-cursorrules/pulls) · [rules](https://github.com/PatrickJS/awesome-cursorrules/blob/main/contributing.md)<br><sub>Include a visible software license.</sub> | ⭐ 40,331<br><sub>created 2024-09-16 · pushed 2026-05-30</sub> |
+
+### AI discovery channels
+
+| Listing | Accepts | How to submit / detected rules | Signals |
+|---|---|---|---|
+| [f/prompts.chat](https://github.com/f/prompts.chat)<br><sub>f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Fr…</sub> | ai tool, open source project | [pull request](https://github.com/f/prompts.chat/pulls) · [rules](https://github.com/f/prompts.chat/blob/main/CONTRIBUTING.md)<br><sub>no hard threshold detected</sub> | ⭐ 165,837<br><sub>created 2022-12-05 · pushed 2026-07-16</sub> |
+| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code)<br><sub>A hand-picked collection of the finest of resources for the most awesome of agents, Claude…</sub> | ai tool | [pull request](https://github.com/hesreallyhim/awesome-claude-code/pulls) · [rules](https://github.com/hesreallyhim/awesome-claude-code/blob/main/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 50,126<br><sub>created 2025-04-19 · pushed 2026-07-16</sub> |
+| [PatrickJS/awesome-cursorrules](https://github.com/PatrickJS/awesome-cursorrules)<br><sub>📄 Configuration files that enhance Cursor AI editor experience with custom rules and behav…</sub> | ai tool | [pull request](https://github.com/PatrickJS/awesome-cursorrules/pulls) · [rules](https://github.com/PatrickJS/awesome-cursorrules/blob/main/contributing.md)<br><sub>Include a visible software license.</sub> | ⭐ 40,331<br><sub>created 2024-09-16 · pushed 2026-05-30</sub> |
+| [The-Art-of-Hacking/h4cker](https://github.com/The-Art-of-Hacking/h4cker)<br><sub>This repository is maintained by Omar Santos (@santosomar) and includes thousands of resour…</sub> | ai tool | [pull request](https://github.com/The-Art-of-Hacking/h4cker/pulls) · [rules](https://github.com/The-Art-of-Hacking/h4cker/blob/master/CONTRIBUTING.md)<br><sub>no hard threshold detected</sub> | ⭐ 28,451<br><sub>created 2017-06-19 · pushed 2026-06-29</sub> |
+| [aishwaryanr/awesome-generative-ai-guide](https://github.com/aishwaryanr/awesome-generative-ai-guide)<br><sub>A one stop repository for generative AI research updates, interview resources, notebooks an…</sub> | ai tool | [pull request](https://github.com/aishwaryanr/awesome-generative-ai-guide/pulls)<br><sub>no hard threshold detected</sub> | ⭐ 28,279<br><sub>created 2024-02-06 · pushed 2026-07-16</sub> |
+| [VoltAgent/awesome-agent-skills](https://github.com/VoltAgent/awesome-agent-skills)<br><sub>A curated collection of 1000+ agent skills from official dev teams and the community, compa…</sub> | ai tool, app | [pull request](https://github.com/VoltAgent/awesome-agent-skills/pulls) · [rules](https://github.com/VoltAgent/awesome-agent-skills/blob/main/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 28,183<br><sub>created 2025-10-28 · pushed 2026-07-10</sub> |
+| [enescingoz/awesome-n8n-templates](https://github.com/enescingoz/awesome-n8n-templates)<br><sub>280+ free n8n automation templates — ready-to-use workflows for Gmail, Telegram, Slack, Dis…</sub> | ai tool, plugin, open source project | [pull request](https://github.com/enescingoz/awesome-n8n-templates/pulls) · [rules](https://github.com/enescingoz/awesome-n8n-templates/blob/main/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 23,906<br><sub>created 2025-05-08 · pushed 2026-07-15</sub> |
+| [VoltAgent/awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents)<br><sub>A collection of 100+ specialized Claude Code subagents covering a wide range of development…</sub> | ai tool, library | [pull request](https://github.com/VoltAgent/awesome-claude-code-subagents/pulls) · [rules](https://github.com/VoltAgent/awesome-claude-code-subagents/blob/main/CONTRIBUTING.md)<br><sub>Keep entries in alphabetical order.</sub> | ⭐ 23,377<br><sub>created 2025-07-30 · pushed 2026-07-10</sub> |
+| [EthicalML/awesome-production-machine-learning](https://github.com/EthicalML/awesome-production-machine-learning)<br><sub>A curated list of awesome open source libraries to deploy, monitor, version and scale your…</sub> | ai tool, library, open source project | [pull request](https://github.com/EthicalML/awesome-production-machine-learning/pulls) · [rules](https://github.com/EthicalML/awesome-production-machine-learning/blob/master/CONTRIBUTING.md)<br><sub>≥500 stars; Keep entries in alphabetical order.</sub> | ⭐ 20,781<br><sub>created 2018-08-15 · pushed 2026-07-14</sub> |
+| [ujjwalkarn/Machine-Learning-Tutorials](https://github.com/ujjwalkarn/Machine-Learning-Tutorials)<br><sub>machine learning and deep learning tutorials, articles and other resources</sub> | ai tool | [pull request](https://github.com/ujjwalkarn/Machine-Learning-Tutorials/pulls) · [rules](https://github.com/ujjwalkarn/Machine-Learning-Tutorials/blob/master/contributing.md)<br><sub>no hard threshold detected</sub> | ⭐ 18,004<br><sub>created 2015-09-12 · pushed 2024-06-12</sub> |
+| [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills)<br><sub>A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI wor…</sub> | ai tool, app | [pull request](https://github.com/travisvn/awesome-claude-skills/pulls) · [rules](https://github.com/travisvn/awesome-claude-skills/blob/main/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 14,138<br><sub>created 2025-10-16 · pushed 2026-04-28</sub> |
+| [YouMind-OpenLab/awesome-nano-banana-pro-prompts](https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts)<br><sub>🍌 World's largest Nano Banana Pro prompt library — 10,000+ curated prompts with preview im…</sub> | ai tool, library, open source project | [pull request](https://github.com/YouMind-OpenLab/awesome-nano-banana-pro-prompts/pulls)<br><sub>no hard threshold detected</sub> | ⭐ 12,851<br><sub>created 2025-11-23 · pushed 2026-07-16</sub> |
+| [steven2358/awesome-generative-ai](https://github.com/steven2358/awesome-generative-ai)<br><sub>A curated list of modern Generative Artificial Intelligence projects and services</sub> | ai tool | [pull request](https://github.com/steven2358/awesome-generative-ai/pulls) · [rules](https://github.com/steven2358/awesome-generative-ai/blob/main/CONTRIBUTING.md)<br><sub>Include a concise description.</sub> | ⭐ 12,332<br><sub>created 2022-10-20 · pushed 2026-06-28</sub> |
+| [EmbraceAGI/awesome-chatgpt-zh](https://github.com/EmbraceAGI/awesome-chatgpt-zh)<br><sub>ChatGPT 中文指南🔥，ChatGPT 中文调教指南，指令指南，应用开发指南，精选资源清单，更好的使用 chatGPT 让你的生产力 up up up! 🚀</sub> | ai tool | [pull request](https://github.com/EmbraceAGI/awesome-chatgpt-zh/pulls)<br><sub>no hard threshold detected</sub> | ⭐ 11,596<br><sub>created 2023-03-21 · pushed 2026-07-03</sub> |
+| [kyrolabs/awesome-langchain](https://github.com/kyrolabs/awesome-langchain)<br><sub>😎 Awesome list of tools and projects with the awesome LangChain framework</sub> | ai tool, library | [pull request](https://github.com/kyrolabs/awesome-langchain/pulls) · [rules](https://github.com/kyrolabs/awesome-langchain/blob/main/contributing.md)<br><sub>open source required; Project must be open source.</sub> | ⭐ 9,455<br><sub>created 2023-02-28 · pushed 2026-04-26</sub> |
+
+## Reading the evidence
+
+| Status | Interpretation |
+|---|---|
+| `verified*` | Manually checked against linked primary documentation on the catalog date. Qualifiers such as beta or partial still matter. |
+| `strong-signal` | GitHub has a detected contribution file and merged-PR activity. The project-fit rules still need human review. |
+| `probable` | GitHub has either documented contribution guidance or merged-PR activity. Listing-specific acceptance is not guaranteed. |
+| `discovery-only` | Found through the awesome-list topic, without enough automated evidence to claim open submissions. Check first. |
+| `source-claimed` | An attributed dataset says the web channel accepts listings; this project has not manually reverified that individual row. |
+
+Unknown thresholds are stored as `null`, not `0` or `false`. Repository creation dates, first releases, and a venue's minimum project-age rule are separate facts.
 
 ## Methodology and maintenance
 

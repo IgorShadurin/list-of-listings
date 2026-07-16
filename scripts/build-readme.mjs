@@ -135,6 +135,29 @@ lines.push("");
 lines.push("> [!IMPORTANT]");
 lines.push("> A listing is a submission lead, not an acceptance guarantee. Rules, prices, queues, and submission status change. Check the linked destination before publishing, and never automate voting, CAPTCHA bypass, or unsolicited mass submissions.");
 lines.push("");
+lines.push("## Complete catalog");
+lines.push("");
+lines.push(`Browse all **${formatNumber(stats.total)}** entries by category. Every category is expanded by default; select its heading to collapse or reopen it. Descriptions are compact here, while full records and provenance live in [\`data/listings.json\`](data/listings.json).`);
+lines.push("");
+lines.push("### Categories");
+lines.push("");
+lines.push("| Category | Listings |");
+lines.push("|---|---:|");
+for (const category of categories) {
+  const count = listings.filter((entry) => entry.category === category).length;
+  lines.push(`| [${markdownEscape(category)}](#${slugify(category)}) | ${formatNumber(count)} |`);
+}
+lines.push("");
+for (const category of categories) {
+  const entries = listings.filter((entry) => entry.category === category);
+  lines.push(`<details open id=\"${slugify(category)}\">`);
+  lines.push(`<summary><strong>${markdownEscape(category)}</strong> — ${formatNumber(entries.length)} listings</summary>`);
+  lines.push("");
+  lines.push(compactTable(entries));
+  lines.push("");
+  lines.push("</details>");
+  lines.push("");
+}
 lines.push("## At a glance");
 lines.push("");
 lines.push("| Catalog | Count | What it means |");
@@ -223,29 +246,6 @@ lines.push("| `source-claimed` | An attributed dataset says the web channel acce
 lines.push("");
 lines.push("Unknown thresholds are stored as `null`, not `0` or `false`. Repository creation dates, first releases, and a venue's minimum project-age rule are separate facts.");
 lines.push("");
-lines.push("## Category index");
-lines.push("");
-lines.push("| Category | Listings |");
-lines.push("|---|---:|");
-for (const category of categories) {
-  const count = listings.filter((entry) => entry.category === category).length;
-  lines.push(`| [${markdownEscape(category)}](#${slugify(category)}) | ${formatNumber(count)} |`);
-}
-lines.push("");
-lines.push("## Complete catalog");
-lines.push("");
-lines.push(`All **${formatNumber(stats.total)}** entries below are generated from JSON. Descriptions are compact here; the complete structured record, provenance, and metrics live in [\`data/listings.json\`](data/listings.json).`);
-lines.push("");
-for (const category of categories) {
-  const entries = listings.filter((entry) => entry.category === category);
-  lines.push(`<details id=\"${slugify(category)}\">`);
-  lines.push(`<summary><strong>${markdownEscape(category)}</strong> — ${formatNumber(entries.length)} listings</summary>`);
-  lines.push("");
-  lines.push(compactTable(entries));
-  lines.push("");
-  lines.push("</details>");
-  lines.push("");
-}
 lines.push("## Methodology and maintenance");
 lines.push("");
 lines.push("- GitHub records come from explicit GraphQL queries in [`config/github-sources.json`](config/github-sources.json), collected through `gh`. Archived repositories and forks are excluded. Topic matches must also show list semantics, project-artifact fit, and a contribution signal; activity remains visible so stale venues can be judged.");
