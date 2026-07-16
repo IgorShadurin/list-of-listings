@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { readFile, stat } from "node:fs/promises";
-import { canonicalUrl, readJson, ROOT } from "./lib/common.mjs";
+import { readFile, readdir, stat } from "node:fs/promises";
+import { canonicalUrl, readJson, ROOT, slugify } from "./lib/common.mjs";
 import { resolve } from "node:path";
 
 const [catalog, githubSource, webSource, manualSource, verifiedWebSource, exclusionsSource, schema, candidates, readme, readmeStat] = await Promise.all([
@@ -30,6 +30,22 @@ function error(message) { errors.push(message); }
 function warning(message) { warnings.push(message); }
 function validHttpUrl(value) {
   try { return ["http:", "https:"].includes(new URL(value).protocol); } catch { return false; }
+}
+
+const categories = [...new Set(catalog.listings.map((listing) => listing.category))];
+const expectedCategoryFiles = new Set(categories.map((category) => `${slugify(category)}.md`));
+let categoryFiles = [];
+try {
+  categoryFiles = (await readdir(resolve(ROOT, "categories"))).filter((file) => file.endsWith(".md"));
+} catch {
+  error("Generated categories directory is missing or unreadable");
+}
+const categoryFileSet = new Set(categoryFiles);
+for (const file of expectedCategoryFiles) {
+  if (!categoryFileSet.has(file)) error(`Missing generated category page: categories/${file}`);
+}
+for (const file of categoryFileSet) {
+  if (!expectedCategoryFiles.has(file)) error(`Unexpected generated category page: categories/${file}`);
 }
 
 if (catalog.schema_version !== "1.0.0") error(`Unexpected schema version: ${catalog.schema_version}`);
@@ -94,6 +110,28 @@ if (!readme.startsWith("<!-- This file is generated")) error("README is missing 
 if (!readme.includes(`**${catalog.stats.total.toLocaleString("en-US")}** entries`)) error("README does not contain the catalog total");
 if (readmeStat.size > 524_288) error(`README is ${readmeStat.size} bytes; keep it at or below 512 KiB for GitHub rendering`);
 if (webSource.source.license !== "MIT" || !webSource.source.commit) error("Web source provenance is incomplete");
+if (readme.includes("<details")) error("README must link to category pages instead of embedding category details");
+
+for (const category of categories) {
+  const entries = catalog.listings.filter((listing) => listing.category === category);
+  const file = `${slugify(category)}.md`;
+  const rootLink = `categories/${file}`;
+  if (!readme.includes(`](${rootLink})`)) error(`README is missing category link: ${rootLink}`);
+  let page = "";
+  try {
+    page = await readFile(resolve(ROOT, "categories", file), "utf8");
+  } catch {
+    continue;
+  }
+  if (!page.startsWith("<!-- This file is generated")) error(`categories/${file} is missing its generated-file marker`);
+  if (!page.includes(`# ${category}`)) error(`categories/${file} is missing its category heading`);
+  if (!page.includes(`**${entries.length.toLocaleString("en-US")}** publication and discovery listings`)) {
+    error(`categories/${file} has an incorrect listing count`);
+  }
+  for (const entry of entries) {
+    if (!page.includes(`](${entry.url})`)) error(`categories/${file} is missing ${entry.id}`);
+  }
+}
 
 for (const candidate of candidates.candidates) {
   if (candidate.status !== "pending-review") error(`${candidate.id}: candidate must remain pending-review`);

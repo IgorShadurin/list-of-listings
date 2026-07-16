@@ -16,7 +16,7 @@ Do not add backlink resellers, bulk-submission agencies, parked domains, scraped
 
 ## Generated files
 
-`data/listings.json` and `README.md` are generated. Do not edit them directly.
+`data/listings.json`, `README.md`, and the files in `categories/` are generated. Do not edit them directly.
 
 - Manually researched, primary-source entries live in `data/manual-listings.json`.
 - Primary-source-verified launch sites, registries, stores, and marketplaces live in `data/verified-web-listings.json`.
