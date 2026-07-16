@@ -20,7 +20,7 @@
 
 ## Complete catalog
 
-Browse all **1,387** entries by category. Every category is expanded by default; select its heading to collapse or reopen it. Descriptions are compact here, while full records and provenance live in [`data/listings.json`](data/listings.json).
+Browse all **1,387** entries by category. Every category starts collapsed; select its heading to open or close it. Descriptions are compact here, while full records and provenance live in [`data/listings.json`](data/listings.json).
 
 ### Categories
 
@@ -51,7 +51,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 | [Software Directories & Reviews](#software-directories-reviews) | 45 |
 | [Web Development](#web-development) | 79 |
 
-<details open id="ai-machine-learning">
+<details id="ai-machine-learning">
 <summary><strong>AI & Machine Learning</strong> — 171 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -230,7 +230,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="app-extension-stores">
+<details id="app-extension-stores">
 <summary><strong>App & Extension Stores</strong> — 8 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -246,7 +246,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="blockchain-web3">
+<details id="blockchain-web3">
 <summary><strong>Blockchain & Web3</strong> — 3 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -257,7 +257,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="business-productivity">
+<details id="business-productivity">
 <summary><strong>Business & Productivity</strong> — 2 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -267,7 +267,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="communities-media">
+<details id="communities-media">
 <summary><strong>Communities & Media</strong> — 44 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -319,7 +319,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="data-databases-apis">
+<details id="data-databases-apis">
 <summary><strong>Data, Databases & APIs</strong> — 42 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -369,7 +369,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="design-creative">
+<details id="design-creative">
 <summary><strong>Design & Creative</strong> — 10 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -387,7 +387,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="developer-tools">
+<details id="developer-tools">
 <summary><strong>Developer Tools</strong> — 100 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -495,7 +495,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="devops-cloud-infrastructure">
+<details id="devops-cloud-infrastructure">
 <summary><strong>DevOps, Cloud & Infrastructure</strong> — 33 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -536,7 +536,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="games">
+<details id="games">
 <summary><strong>Games</strong> — 2 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -546,7 +546,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="games-digital-assets">
+<details id="games-digital-assets">
 <summary><strong>Games & Digital Assets</strong> — 3 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -557,7 +557,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="general-project-discovery">
+<details id="general-project-discovery">
 <summary><strong>General Project Discovery</strong> — 127 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -692,7 +692,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="integration-marketplaces">
+<details id="integration-marketplaces">
 <summary><strong>Integration Marketplaces</strong> — 7 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -707,7 +707,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="languages-frameworks">
+<details id="languages-frameworks">
 <summary><strong>Languages & Frameworks</strong> — 77 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -792,7 +792,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="launch-product-directories">
+<details id="launch-product-directories">
 <summary><strong>Launch & Product Directories</strong> — 399 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1199,7 +1199,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="mcp-agent-publishing">
+<details id="mcp-agent-publishing">
 <summary><strong>MCP & Agent Publishing</strong> — 62 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1269,7 +1269,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="mobile-desktop">
+<details id="mobile-desktop">
 <summary><strong>Mobile & Desktop</strong> — 40 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1317,7 +1317,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="open-source-self-hosted">
+<details id="open-source-self-hosted">
 <summary><strong>Open Source & Self-hosted</strong> — 32 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1357,7 +1357,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="package-developer-registries">
+<details id="package-developer-registries">
 <summary><strong>Package & Developer Registries</strong> — 16 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1381,7 +1381,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="regional-directories">
+<details id="regional-directories">
 <summary><strong>Regional Directories</strong> — 2 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1391,7 +1391,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="science-education">
+<details id="science-education">
 <summary><strong>Science & Education</strong> — 16 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1415,7 +1415,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="security-privacy">
+<details id="security-privacy">
 <summary><strong>Security & Privacy</strong> — 67 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1490,7 +1490,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="software-directories-reviews">
+<details id="software-directories-reviews">
 <summary><strong>Software Directories & Reviews</strong> — 45 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |
@@ -1543,7 +1543,7 @@ Browse all **1,387** entries by category. Every category is expanded by default;
 
 </details>
 
-<details open id="web-development">
+<details id="web-development">
 <summary><strong>Web Development</strong> — 79 listings</summary>
 
 | Listing and description | Accepts | Submit and rules | Stars/created or web signal |

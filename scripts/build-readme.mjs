@@ -137,7 +137,7 @@ lines.push("> A listing is a submission lead, not an acceptance guarantee. Rules
 lines.push("");
 lines.push("## Complete catalog");
 lines.push("");
-lines.push(`Browse all **${formatNumber(stats.total)}** entries by category. Every category is expanded by default; select its heading to collapse or reopen it. Descriptions are compact here, while full records and provenance live in [\`data/listings.json\`](data/listings.json).`);
+lines.push(`Browse all **${formatNumber(stats.total)}** entries by category. Every category starts collapsed; select its heading to open or close it. Descriptions are compact here, while full records and provenance live in [\`data/listings.json\`](data/listings.json).`);
 lines.push("");
 lines.push("### Categories");
 lines.push("");
@@ -150,7 +150,7 @@ for (const category of categories) {
 lines.push("");
 for (const category of categories) {
   const entries = listings.filter((entry) => entry.category === category);
-  lines.push(`<details open id=\"${slugify(category)}\">`);
+  lines.push(`<details id=\"${slugify(category)}\">`);
   lines.push(`<summary><strong>${markdownEscape(category)}</strong> — ${formatNumber(entries.length)} listings</summary>`);
   lines.push("");
   lines.push(compactTable(entries));
